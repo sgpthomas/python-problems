@@ -1,16 +1,17 @@
 import math
 import time
+#import matplotlib.pyplot as plt
+#import numpy as np
 
 #entropy function
 def shannon_entropy (timeseries, n=5):
     combos = []
-    #total = float (math.factorial (n))
+    total = float (len (timeseries)-(n-1))
     #loop through timeseries
-    for lag in range (0, len (timeseries)-(n)):
+    for lag in range (0, int (total)):
         combos.append (sort (timeseries [0+lag:n+lag]))
 
     times = count_occurences (combos)
-    total = float (len (timeseries)-(n))
 
     entropy = 0
     for combo in times:
@@ -31,7 +32,7 @@ def count_occurences (arr):
             count += 1
 
         ret_arr.append ((combo, count))
-        print (combo, count)
+        #print (combo, count)
 
     return ret_arr
 
@@ -55,16 +56,22 @@ def sort (bucket):
             ret_arr.insert (curr_index, i)
             comp_val = bucket[i]
 
+    #print (bucket, ret_arr)
     return ret_arr
 
 
 def test ():
-    fun = range (1000);
-    for n in range (len (fun)):
-        fun[n] = math.sin (n)
+    x = [0.01]
+    for i in range (60):
+        v = 3.95 * x[i] * (1 - x[i])
+        x.append (v)
 
     n = 5
-    print ("n:" + str (n) + " Entropy:" + str (shannon_entropy (fun, n)))
+    print ("n:" + str (n) + " Entropy:" + str (shannon_entropy (x, n)))
+    #plt.plot (x)
+    #plt.plot (x2)
+    #plt.grid ()
+    #plt.show ()
 
 def test_sort ():
     a = [-1.534512345, 1.6453412, 34125.1235, -541.5435, 0.5413]
