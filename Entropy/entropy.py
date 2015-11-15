@@ -10,7 +10,7 @@ def shannon_entropy (timeseries, n=5):
         combos.append (sort (timeseries [0+lag:n+lag]))
 
     times = count_occurences (combos)
-    total = float ((len (timeseries) / 10) * len (times))
+    total = float (len (timeseries)-(n))
 
     entropy = 0
     for combo in times:
@@ -59,9 +59,9 @@ def sort (bucket):
 
 
 def test ():
-    fun = range (10000);
+    fun = range (1000);
     for n in range (len (fun)):
-        fun[n] = math.sin (math.pi * n)
+        fun[n] = math.sin (n)
 
     n = 5
     print ("n:" + str (n) + " Entropy:" + str (shannon_entropy (fun, n)))
@@ -73,4 +73,5 @@ def test_sort ():
     print (time.time () - start)
 
 if __name__ == '__main__':
-    test_sort ()
+    #test_sort ()
+    test ()
